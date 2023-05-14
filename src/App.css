@@ -1,0 +1,12 @@
+* {
+  font-family: 'Roboto';
+}
+
+.form input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  width: 20px;
+  height: 20px;
+}
+
+input[type="datetime-local"]::-webkit-datetime-edit {
+  display:none;
+}
