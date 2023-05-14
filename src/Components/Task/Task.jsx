@@ -38,9 +38,10 @@ const Task = ({ description, checked, task, isActive, handleTaskClick, activeTas
           <div className={checked ? 'capitalize line-through opacity-50' : 'capitalize'}>{description}</div>
         </div>
         <span onClick={handleClick} className='h-16 flex-1 '></span>
-        <div className='flex gap-2 '>
+        <div className='flex gap-2 items-center'>
           <BiEdit onClick={handleModal} size={18} className={`cursor-pointer ${isActive ? '' : 'hidden'}`} />
           <AiOutlineDelete onClick={handleDelete} size={18} className={`cursor-pointer ${isActive ? '' : 'hidden'}`} />
+          <p className='text-[.8rem] pr-5'>13:15</p>
         </div>
       </div>
       {/* <EditModal showModal={showModal} onCloseModal={handleModal} /> */}

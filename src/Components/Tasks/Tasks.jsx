@@ -3,9 +3,10 @@ import { useTodoList } from '../../hooks/useTodoList'
 import Task from '../Task/Task'
 
 const checkedSort = (task) => task.checked ? 1 : -1
+const dateToday = new Date()
 
 const Tasks = () => {
-  const { tasks, activeTaskId, setActiveTaskId } = useTodoList()
+  const { tasks, activeTaskId, setActiveTaskId, currentDate } = useTodoList()
   const taskRef = useRef()
 
   const sortedTasks = [
@@ -23,16 +24,21 @@ const Tasks = () => {
         setActiveTaskId(null)
       }
     }
-
     document.addEventListener('click', handleClickOutside)
     return () => {
       document.removeEventListener('click', handleClickOutside)
     }
   }, [])
 
+  const day = currentDate.getDate()
+  const month = currentDate.getMonth() + 1
+  const formattedDate = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}`;
+
+  const isToday = currentDate.getDate() === dateToday.getDate()
+
   return (
     <div className='h-max flex-1 overflow-y-auto' ref={taskRef}>
-      <p className='mx-4 my-2 py-2 font-medium'>Hoje</p>
+      <p className='mx-4 my-2 py-2 font-medium'>{isToday ? 'Hoje' : formattedDate}</p>
       {sortedTasks.map(task =>
         <Task
           key={task.id}

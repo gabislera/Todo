@@ -1,16 +1,42 @@
-import React from 'react'
-import Date from './Date'
+import { useState } from 'react'
+import DateComponent from './DateComponent'
+import { useTodoList } from '../../hooks/useTodoList'
+
+const options = { weekday: 'short', timeZone: 'UTC', locale: 'pt' }
 
 const DateSelector = () => {
+  const { currentDate, setCurrentDate } = useTodoList()
+  const dateComponents = []
+  const middleIndex = 3 // Index of the middle element in the array
+
+  for (let i = middleIndex - 3; i <= middleIndex + 3; i++) {
+    const date = new Date(currentDate)
+    date.setDate(currentDate.getDate() + (i - middleIndex))
+    const dayOfMonth = date.getDate()
+    const dayOfWeek = date.toLocaleString('pt', options).slice(0, 3)
+    const isActive = dayOfMonth === currentDate.getDate()
+
+    dateComponents.push(
+      <DateComponent
+        key={dayOfMonth}
+        day={dayOfMonth}
+        week={dayOfWeek}
+        isActive={isActive}
+        onClick={() => handleDateClick(dayOfMonth)}
+      />
+    )
+  }
+
+  const handleDateClick = (day) => {
+    const newDate = new Date(currentDate)
+    newDate.setDate(day)
+    setCurrentDate(newDate)
+    console.log(currentDate)
+  }
+
   return (
     <div className=' bg-white mx-auto flex justify-between p-5 w-full mt-10'>
-      <Date day='5' week='Qui' />
-      <Date day='6' week='Sex' />
-      <Date day='7' week='Sab' />
-      <Date day='8' week='Dom' />
-      <Date day='9' week='Seg' />
-      <Date day='10' week='Ter' />
-      <Date day='11' week='Qua' />
+      {dateComponents}
     </div>
   )
 }
