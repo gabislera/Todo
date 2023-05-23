@@ -1,7 +1,7 @@
 const DateTimeInput = ({ value, onChange }) => {
   return (
     <div className='flex flex-col'>
-      <label className='text-[0.85rem]' htmlFor='date'>Data/Hora</label>
+      <label className='text-[1rem]' htmlFor='date'>Data/Hora</label>
       <input
         type="datetime-local"
         onChange={onChange}

@@ -5,20 +5,20 @@ import { useTodoList } from '../../hooks/useTodoList'
 const Modal = ({ showModal, onCloseModal }) => {
   const { addTask } = useTodoList()
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') onCloseModal()
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [onCloseModal])
+  // useEffect(() => {
+  //   const handleKeyDown = (event) => {
+  //     if (event.key === 'Escape') onCloseModal()
+  //   }
+  //   window.addEventListener('keydown', handleKeyDown)
+  //   return () => window.removeEventListener('keydown', handleKeyDown)
+  // }, [onCloseModal]) TODO 
 
   const onSubmit = (taskData) => {
     addTask(taskData)
     onCloseModal()
   }
 
-  if (!showModal) return <></>
+  if (!showModal) return null
   return (
     <div className="flex w-screen h-screen absolute bg-black/40 top-0 left-0 z-[1] overflow-hidden">
       <div className='rounded-xl bg-white absolute top-28 left-1/2 -translate-x-2/4 shadow-xl'>

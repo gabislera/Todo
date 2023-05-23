@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import DateComponent from './DateComponent'
 import { useTodoList } from '../../hooks/useTodoList'
 
@@ -35,7 +34,7 @@ const DateSelector = () => {
   }
 
   return (
-    <div className=' bg-white mx-auto flex justify-between p-5 w-full mt-10'>
+    <div className=' bg-white mx-auto flex flex-row justify-between p-5 w-full mt-10'>
       {dateComponents}
     </div>
   )

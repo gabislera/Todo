@@ -59,12 +59,15 @@ const Form = ({ buttonText, onSubmit, currentTask }) => {
     resetState()
   }
 
+  // useEffect(() => {
+  //   console.log(todayDate)
+  // }, [])
+
   return (
-    <div className='flex flex-col gap-10 pb-5'>
-      <h1 className='mx-5 mt-5 font-roboto font-normal'>Qual a sua próxima tarefa?</h1>
-      {/* <button onClick={handleSubmit}>modal</button> */}
+    <div className='flex flex-col items-center gap-10 pb-5 w-[23rem]'>
+      <h1 className='mt-5 font-roboto font-normal'>Qual a sua próxima tarefa?</h1>
       <div className='flex'>
-        <form className='flex flex-col mx-5 gap-5' onSubmit={handleSubmit}>
+        <form className='flex flex-col  gap-5' onSubmit={handleSubmit}>
           <TaskInput value={title} onChange={handleTitle} />
           <TextAreaInput value={description} onChange={handleDescription} />
           <div className='flex justify-between flex-row gap-3 flex-wrap'>

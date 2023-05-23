@@ -18,14 +18,8 @@ const storageTask = getTasks()
 export const UserStorage = ({ children }) => {
   const [tasks, setTasks] = useState(storageTask)
   const [id, setId] = useState(1)
-  const [currentTask, setCurrentTask] = useState('')
-  const [activeTaskId, setActiveTaskId] = useState(null)
+  const [currentTask, setCurrentTask] = useState(undefined)
   const [currentDate, setCurrentDate] = useState(new Date())
-
-
-  useEffect(() => {
-    console.log(tasks)
-  }, [tasks])
 
   const addTask = (task) => {
     setTasks((prevTask) => {
@@ -81,8 +75,6 @@ export const UserStorage = ({ children }) => {
       currentTask,
       deleteTask,
       editTask,
-      activeTaskId,
-      setActiveTaskId,
       currentDate,
       setCurrentDate
     }}>

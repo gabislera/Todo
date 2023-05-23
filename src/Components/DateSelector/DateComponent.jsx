@@ -7,6 +7,8 @@ const DateComponent = ({ day, week, isActive, onClick }) => {
       </div>
       <p className={`${isActive ? 'text-primary w-9 h-9 flex justify-center text-[1.3rem]' : 'text-secondary'}`}>{week}</p>
     </div>
+
+
   )
 }
 

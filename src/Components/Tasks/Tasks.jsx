@@ -6,22 +6,23 @@ const checkedSort = (task) => task.checked ? 1 : -1
 const dateToday = new Date()
 
 const Tasks = () => {
-  const { tasks, activeTaskId, setActiveTaskId, currentDate } = useTodoList()
+  const { tasks, activeTaskId, currentDate, setCurrentTask } = useTodoList()
   const taskRef = useRef()
 
-  const sortedTasks = [
-    ...tasks.filter((task) => !task.checked).sort(checkedSort),
-    ...tasks.filter((task) => task.checked).sort(checkedSort)
-  ]
+  const dateSelectedTasks = tasks.filter((task) => {
+    const teste = new Date(task.dateValue)
+    return teste.toDateString() === currentDate.toDateString()
+  })
 
-  const handleTaskClick = (id) => {
-    setActiveTaskId(id)
-  }
+  const sortedTasks = [
+    ...dateSelectedTasks.filter((task) => !task.checked).sort(checkedSort),
+    ...dateSelectedTasks.filter((task) => task.checked).sort(checkedSort)
+  ]
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (taskRef.current && !taskRef.current.contains(event.target)) {
-        setActiveTaskId(null)
+        setCurrentTask(undefined)
       }
     }
     document.addEventListener('click', handleClickOutside)
@@ -37,7 +38,8 @@ const Tasks = () => {
   const isToday = currentDate.getDate() === dateToday.getDate()
 
   return (
-    <div className='h-max flex-1 overflow-y-auto' ref={taskRef}>
+    <div className='h-max ' ref={taskRef}>
+      <div className='border-t-[1px] w-96 mx-auto'></div>
       <p className='mx-4 my-2 py-2 font-medium'>{isToday ? 'Hoje' : formattedDate}</p>
       {sortedTasks.map(task =>
         <Task
@@ -45,8 +47,7 @@ const Tasks = () => {
           description={task.title}
           checked={task.checked}
           task={task}
-          isActive={activeTaskId === task.id}
-          handleTaskClick={handleTaskClick}
+          // handleTaskClick={handleTaskClick}
           activeTaskId={activeTaskId}
         />)}
     </div>

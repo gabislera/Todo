@@ -1,36 +1,34 @@
-import { BiEdit } from 'react-icons/bi'
-import { AiOutlineDelete } from 'react-icons/ai'
 import { useTodoList } from '../../hooks/useTodoList'
-// import EditModal from '../EditModal/EditModal'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import EditTask from './EditTask'
+import ModalTeste from '../ModalTeste'
+import { BiEdit } from 'react-icons/bi'
 
-const Task = ({ description, checked, task, isActive, handleTaskClick, activeTaskId }) => {
-  const { updateChecked, setCurrentTask, currentTask, deleteTask } = useTodoList()
+const Task = ({ description, checked, task }) => {
+  const { updateChecked, setCurrentTask, currentTask } = useTodoList()
   const [showModal, setShowModal] = useState(false)
-
-  const handleModal = () => {
-    setShowModal((prevState) => !prevState)
-    handleTaskClick(task.id)
-    setCurrentTask(task)
-  }
+  const isActive = currentTask?.id === task.id
 
   const handleChecked = () => {
     updateChecked(task)
   }
 
-  const handleDelete = () => {
-    deleteTask(currentTask)
-    setCurrentTask(task)
+  const handleClick = () => {
+    if (!isActive)
+      return setCurrentTask(task)
+    setCurrentTask(undefined)
   }
 
-  const handleClick = () => {
-    setCurrentTask(task)
-    handleTaskClick(task.id)
+  const time = new Date(task.dateValue)
+  const timeFormated = `${time.getHours() - 3}:${time.getMinutes()} `  //BUG NA RENDERIZAÇAO DA HORA DA TASK
 
+  const handleModal = () => {
+    setShowModal((prevState) => !prevState)
+    console.log('teste')
   }
 
   return (
-    <div className={`mx-4 my-2 px-2  rounded-xl border-[#D6D6D6] border-[1.5px] text-secondary ${isActive ? 'scale-95' : ''}`}>
+    <div className={`mx-4 my-2 px-2 rounded-xl border-[#D6D6D6] border-[1.5px] text-secondary ${isActive ? 'scale-95' : ''}`}>
       <div className='flex items-center'>
         <div className='flex items-center gap-2'>
           <label htmlFor="checkbox"></label>
@@ -38,13 +36,15 @@ const Task = ({ description, checked, task, isActive, handleTaskClick, activeTas
           <div className={checked ? 'capitalize line-through opacity-50' : 'capitalize'}>{description}</div>
         </div>
         <span onClick={handleClick} className='h-16 flex-1 '></span>
-        <div className='flex gap-2 items-center'>
-          <BiEdit onClick={handleModal} size={18} className={`cursor-pointer ${isActive ? '' : 'hidden'}`} />
-          <AiOutlineDelete onClick={handleDelete} size={18} className={`cursor-pointer ${isActive ? '' : 'hidden'}`} />
-          <p className='text-[.8rem] pr-5'>13:15</p>
+
+        <div className='flex items-center'>
+          <p className='text-[.8rem] '>{timeFormated}</p>
+          {/* {isActive && <BiEdit onClick={handleModal} size={18} className='cursor-pointer mx-1' />} */}
+          <BiEdit onClick={handleModal} size={18} className='cursor-pointer mx-1' />
         </div>
       </div>
-      {/* <EditModal showModal={showModal} onCloseModal={handleModal} /> */}
+      <ModalTeste showModal={showModal} onCloseModal={handleModal} />
+      {/* {isActive && <EditTask task={task} />} */}
     </div>
   )
 }
