@@ -1,6 +1,6 @@
 import { useTodoList } from '../../hooks/useTodoList'
 import { useState } from 'react'
-import EditTask from './EditTask'
+// import EditTask from './EditTask'
 import ModalTeste from '../ModalTeste'
 import { BiEdit } from 'react-icons/bi'
 
